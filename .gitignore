@@ -1,0 +1,9 @@
+__pycache__/
+reportgenerator/
+previous ver/
+*.xlsx
+appv3.py
+testing.py
+Readme.docx
+NikkiEZreport.exe
+NikkiReportGenerator.exe
