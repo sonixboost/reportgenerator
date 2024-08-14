@@ -8,7 +8,6 @@ from docx import Document
 EXCEL_SHEET = 'No file selected.'
 required_cols = [1,2,7,27,29]
 save_path = os.getcwd()
-logging = True
 
 document = Document()
 # Set font
