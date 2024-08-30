@@ -1,4 +1,4 @@
-Update V3.0.0: 
+Update V3.1.2: 
 Before this version, users have to manually reinstall the entire .exe file to update the app. With this new version, an auto update script is in place to allow for a more seamless user experience! The app will now update automatically, eliminating the needs for manual uninstalls and installs. Cheers!
 
 My objective of this small project is to design an application to help automate and simplify a report writing process. Conventionally, a typical report takes hours to complete and is very mundane. This program will generate a report in mere seconds, reducing the need for manual counting and typing.
