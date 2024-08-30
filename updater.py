@@ -5,15 +5,17 @@ import shutil
 
 GITHUB_REPO: str = "https://raw.githubusercontent.com/sonixboost/reportgenerator/main"
 VERSION_FILE_URL: str = f"{GITHUB_REPO}/version.txt"
-CURRENT_VERSION: str = "3.0.0"  # Update this with the current version of app
-UPDATE_FILE_URL: str = f"{GITHUB_REPO}/NikkiReportGenerator_V2.1.1.exe"
-EXE_NAME = "NikkiReportGenerator_V2.1.1.exe"
+CURRENT_VERSION: str = "3.1.0"  # Update this with the current version of app
+UPDATE_FILE_URL: str = f"{GITHUB_REPO}/NikkiReportGenerator.exe"
+EXE_NAME = "NikkiReportGenerator.exe"
 
 def check_for_update():
     try:
         print("Checking for update...")
         response = requests.get(VERSION_FILE_URL)
         latest_version = response.text.strip()
+        if latest_version == "400: Invalid request":
+            print("Failed to check for updates. Please check your internet connection.")
         if latest_version > CURRENT_VERSION:
             return latest_version
         else:
@@ -49,9 +51,9 @@ def main():
     latest_version = check_for_update()
     if latest_version:
         print(f"Update available: {latest_version}")
-        # update_file = download_update()
-        # if update_file:
-        #     apply_update(update_file)
+        update_file = download_update()
+        if update_file:
+            apply_update(update_file)
     else:
         print("No update available.")
 
