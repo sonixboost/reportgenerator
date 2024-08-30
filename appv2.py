@@ -1,6 +1,7 @@
 import customtkinter
 from customtkinter import filedialog
 import os
+import subprocess
 import mainv2
 
 #################### SETTINGS ########################
@@ -66,6 +67,9 @@ class App(customtkinter.CTk):
         self.textbox.insert("end", "\n\n\nSave to:\n" + self.save_path)
         self.textbox.configure(state="disabled")
 
+        # Check for updates
+        self.check_for_updates()
+
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
@@ -104,7 +108,13 @@ class App(customtkinter.CTk):
         mainv2.generate_report(self.custom_name)
         report = mainv2.report
         self.result.configure(text=report)
-        
+    
+    def check_for_updates(self):
+        """Checks for updates and runs updater if necessary."""
+        # Construct the path to the Python executable
+        self.python_executable = os.path.join(os.path.dirname(__file__)+r"\reportgenerator\Scripts\python.exe")
+
+        subprocess.call([self.python_executable, "updater.py"])
 
 if __name__ == "__main__":
     app = App()
