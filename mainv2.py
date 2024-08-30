@@ -102,6 +102,7 @@ def calculate_case(amount):
 price_dict: dict = {
     3299: 2,
     2804: 2,
+    1999: 2,
     599: 1, 
     899: 1, 
     1499: 1, 

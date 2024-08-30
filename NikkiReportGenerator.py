@@ -71,10 +71,6 @@ class App(customtkinter.CTk):
         self.textbox.insert("end", "\n\n\nSave to:\n" + self.save_path)
         self.textbox.configure(state="disabled")
 
-        # Check for updates
-        self.check_for_updates()
-
-
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
@@ -112,15 +108,30 @@ class App(customtkinter.CTk):
         mainv2.generate_report(self.custom_name)
         report = mainv2.report
         self.result.configure(text=report)
-    
-    def check_for_updates(self):
-        """Checks for updates and runs updater if necessary."""
-        # Construct the path to the Python executable
-        # Use sys.executable to get the path of the current Python interpreter (or .exe when packaged)
-        self.python_executable = sys.executable
 
-        subprocess.call([self.python_executable, "updater.py"])
+def check_for_updates():
+    """Checks for updates and runs the updater if necessary."""
+    # Construct the path to the Python executable
+    python_executable = sys.executable
+
+    # Dynamically construct the updater path relative to the current file
+    updater_path = os.path.join(os.path.dirname(__file__), "updater.py")
+
+    # Ensure the path exists before attempting to run it
+    if not os.path.exists(updater_path):
+        print(f"Updater script not found at: {updater_path}")
+        return
+
+    print(f"Running updater: {updater_path}")
+    try:
+        # Execute the updater script
+        subprocess.call([python_executable, updater_path])
+    except FileNotFoundError as e:
+        print(f"Failed to execute updater script: {e}")
 
 if __name__ == "__main__":
+    # Run the update check before starting the main application
+    if not os.getenv("UPDATER_RUNNING"):
+        check_for_updates()
     app = App()
     app.mainloop()
